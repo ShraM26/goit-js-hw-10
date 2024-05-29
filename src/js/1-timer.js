@@ -6,8 +6,9 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
 const btnStart = document.querySelector('[data-start]');
- btnStart.disabled = true;
-
+btnStart.disabled = true;
+let userSelectedDate;
+ 
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -17,17 +18,18 @@ const options = {
     const selectedDate = selectedDates[0];
     const currentDate = new Date();
    
-     if (selectedDate > currentDate) {
-      btnStart.disabled = false; // Активуємо кнопку, якщо обрана дата в майбутньому
-    } else {
-      btnStart.disabled = true; // Деактивуємо кнопку, якщо обрана дата в минулому або не вибрана
-      window.alert("Please choose a date in the future");
-    }
+    btnStart.disabled = selectedDate > currentDate ?
+      false : (window.alert("Please choose a date in the future"), true);
+    userSelectedDate = selectedDate;
+    console.log(userSelectedDate);
   }
 };
 
 flatpickr('#datetime-picker', options);
-let userSelectedDate;
+
+btnStart.addEventListener('click')
+
+
 
 
 
