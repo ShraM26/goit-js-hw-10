@@ -6,6 +6,7 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
 const btnStart = document.querySelector('[data-start]');
+ btnStart.disabled = true;
 
 const options = {
   enableTime: true,
@@ -15,7 +16,7 @@ const options = {
   onClose(selectedDates) {
     const selectedDate = selectedDates[0];
     const currentDate = new Date();
-
+   
      if (selectedDate > currentDate) {
       btnStart.disabled = false; // Активуємо кнопку, якщо обрана дата в майбутньому
     } else {
