@@ -1,7 +1,6 @@
 
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
-
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
@@ -14,8 +13,6 @@ const hours = elemDOM('[data-hours]');
 const minutes = elemDOM('[data-minutes]');
 const seconds = elemDOM('[data-seconds]');
 const datetime = elemDOM('#datetime-picker');
-
-
 
 btnStart.disabled = true;
 let userSelectedDate;
@@ -58,10 +55,9 @@ btnStart.addEventListener('click', startTimer);
 function startTimer () {
   btnStart.disabled = true;
   datetime.disabled = true;
-  
+
   const countdownDate = new Date(userSelectedDate).getTime();
   const timerInterval = setInterval(updateTimer, 1000);
-
   // Функция обновления таймера
   function updateTimer() {
     const currentTime = new Date().getTime();
@@ -78,9 +74,7 @@ function startTimer () {
       datetime.disabled = false;
       return;
     }
-
     const time = convertMs(difference);
-
     // Отображение времени в интерфейсе с добавлением ведущих нулей
     days.textContent = addLeadingZero(time.days);
     hours.textContent = addLeadingZero(time.hours);
@@ -91,7 +85,6 @@ function startTimer () {
 function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 }
-
 function convertMs(ms) {
   const second = 1000;
   const minute = second * 60;
