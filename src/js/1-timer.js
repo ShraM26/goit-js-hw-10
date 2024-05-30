@@ -8,11 +8,11 @@ function elemDOM(selector) {
   return document.querySelector(selector);
 };
 const btnStart = elemDOM('[data-start]');
-const days = elemDOM('[data-days]');
-const hours = elemDOM('[data-hours]');
-const minutes = elemDOM('[data-minutes]');
-const seconds = elemDOM('[data-seconds]');
-const datetime = elemDOM('#datetime-picker');
+const daysEL = elemDOM('[data-days]');
+const hoursEL = elemDOM('[data-hours]');
+const minutesEL = elemDOM('[data-minutes]');
+const secondsEL = elemDOM('[data-seconds]');
+const datetimeInpEL = elemDOM('#datetime-picker');
 
 btnStart.disabled = true;
 let userSelectedDate;
@@ -27,13 +27,12 @@ const options = {
   }
 }
 // Инициализация flatpickr
-flatpickr(datetime, options);
+flatpickr(datetimeInpEL, options);
 // Обробка вибору дати
 function handleDateSelection(selectedDates) {
   const selectedDate = selectedDates[0];
-  const currentDate = new Date();
-   
-  if (selectedDate > currentDate) {
+
+  if (selectedDate > new Date()) {
     btnStart.disabled = false;
     userSelectedDate = selectedDate;
   } else {
@@ -45,41 +44,46 @@ function handleDateSelection(selectedDates) {
 function showError(message) {
   iziToast.error({
     title: 'Error',
+    titleColor: '#fff',
     message: message,
-    position: 'topRight'
+    messageColor: '#fff',
+    backgroundColor: '#ef4040',
+    position: 'topRight',
+    iconColor: '#fff',
+    theme: 'dark',
   });
 }
 // Начало отсчета таймера при нажатии на кнопку Start
-btnStart.addEventListener('click', startTimer);
+btnStart.addEventListener('click', activateTimer);
 
-function startTimer () {
+function activateTimer () {
   btnStart.disabled = true;
-  datetime.disabled = true;
-
-  const countdownDate = new Date(userSelectedDate).getTime();
+  datetimeInpEL.disabled = true;
+// получаем количиство милисекунд
+  const countdownDateMs = new Date(userSelectedDate).getTime();
+//  обчесляем раз на секунду
   const timerInterval = setInterval(updateTimer, 1000);
   // Функция обновления таймера
   function updateTimer() {
-    const currentTime = new Date().getTime();
-    const difference = countdownDate - currentTime;
-
-    if (difference <= 0) {
+    // получаем текущее количество милисекунд
+    const currentTimeMs = new Date().getTime();
+    // отнимаем выбраное количиство  полюзувателем от текущего
+    const differenceMs = countdownDateMs - currentTimeMs;
+// останавливаем таймер когда кончится время и обчесление раз в секунду 
+    if (differenceMs <= 0) {
       clearInterval(timerInterval);
       // Действия при завершении отсчета
-      days.textContent = '00';
-      hours.textContent = '00';
-      minutes.textContent = '00';
-      seconds.textContent = '00';
-      btnStart.disabled = false;
-      datetime.disabled = false;
-      return;
+     for (const item of elementsDOM) {
+         item.elDOM.textContent = item.value;
+       }
+        datetimeInpEL.disabled = false;
+        return;
     }
-    const time = convertMs(difference);
+    const time = convertMs(differenceMs);
     // Отображение времени в интерфейсе с добавлением ведущих нулей
-    days.textContent = addLeadingZero(time.days);
-    hours.textContent = addLeadingZero(time.hours);
-    minutes.textContent = addLeadingZero(time.minutes);
-    seconds.textContent = addLeadingZero(time.seconds);
+       for (const [index, item] of elementsDOM.entries()) {
+             item.elDOM.textContent = addLeadingZero(time[Object.keys(time)[index]]);
+         }
   }
 }
 function addLeadingZero(value) {
@@ -98,8 +102,23 @@ function convertMs(ms) {
 
   return { days, hours, minutes, seconds };
 }
+const elementsDOM = [
+  { elDOM: daysEL, value: '00' },
+  { elDOM: hoursEL, value: '00' },
+  { elDOM: minutesEL, value: '00' },
+  { elDOM: secondsEL, value: '00' }
+];
 
 
-
-
-
+// Действия при завершении отсчета легкий вариант
+  // daysEL.textContent = '00';
+  //     hoursEL.textContent = '00';
+  //     minutesEL.textContent = '00';
+  //     secondsEL.textContent = '00';
+  //     datetimeInpEL.disabled = false;
+  //     return;
+ // Отображение времени в интерфейсе с добавлением ведущих нулей легкий вариант
+    // daysEL.textContent = addLeadingZero(time.days);
+    // hoursEL.textContent = addLeadingZero(time.hours);
+    // minutesEL.textContent = addLeadingZero(time.minutes);
+    // secondsEL.textContent = addLeadingZero(time.seconds);
