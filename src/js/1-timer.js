@@ -3,10 +3,11 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
-    // Функция для создания элемента DOM
-function query(selector) {
+// Функция для создания элемента DOM
+ function query(selector) {
   return document.querySelector(selector);
 }
+
 // Значения элементов DOM
 const elementsDOM = [
   { elDOM: '[data-days]', value: '00' },
