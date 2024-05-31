@@ -1,1 +1,1 @@
-{"version":3,"file":"commonHelpers2.js","sources":[],"sourcesContent":[],"names":[],"mappings":""}
+{"version":3,"file":"commonHelpers2.js","sources":["../src/js/2-snackbar.js"],"sourcesContent":["import iziToast from \"izitoast\";\nimport \"izitoast/dist/css/iziToast.min.css\";\n\n\nconst formEl = document.querySelector('.form');\n\nformEl.addEventListener('submit', e => {\n    e.preventDefault();\n}); \n    "],"names":["formEl","e"],"mappings":"4HAIA,MAAMA,EAAS,SAAS,cAAc,OAAO,EAE7CA,EAAO,iBAAiB,SAAUC,GAAK,CACnCA,EAAE,eAAc,CACpB,CAAC"}

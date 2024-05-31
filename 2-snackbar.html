@@ -6,11 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Snackbar</title>
     
-    <link rel="stylesheet" href="/vanilla-app-template/assets/styles-3ada0e15.css">
+    <script type="module" crossorigin src="/vanilla-app-template/commonHelpers2.js"></script>
+    <link rel="modulepreload" crossorigin href="/vanilla-app-template/assets/modulepreload-polyfill-3cfb730f.js">
+    <link rel="modulepreload" crossorigin href="/vanilla-app-template/assets/vendor-77e16229.js">
+    <link rel="stylesheet" href="/vanilla-app-template/assets/vendor-7a007824.css">
+    <link rel="stylesheet" href="/vanilla-app-template/assets/styles-4b2c947e.css">
   </head>
   <body>
+    <a class="link-back" href="./index.html">Go back</a>
     <section>
-      <a class="link-back" href="./index.html">Go back</a>
       <form class="form">
         <label>
           Delay (ms)
@@ -32,5 +36,6 @@
         <button type="submit">Create notification</button>
       </form>
     </section>
+    
   </body>
 </html>
